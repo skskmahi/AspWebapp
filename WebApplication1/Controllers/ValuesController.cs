@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
 
             SqlCommand sqlCmd = new SqlCommand();
             sqlCmd.CommandType = CommandType.Text;
-            sqlCmd.CommandText = "update EventTB set EventName="+value+" where EventID=2";
+            sqlCmd.CommandText = "update EventTB set EventName="+ value+" where EventID=2";
             sqlCmd.Connection = myConnection;
             myConnection.Open();
             reader = sqlCmd.ExecuteReader();

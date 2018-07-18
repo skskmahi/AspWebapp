@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net.Http;
@@ -19,18 +20,18 @@ namespace ConsoleAppforwebapi
             clt.DefaultRequestHeaders.Accept.Clear();
             clt.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-            // MyAPIGet(clt).Wait();
+            MyAPIGet(clt).Wait();
             MyAPIPut(clt).Wait();
         }
         static async Task MyAPIGet(HttpClient cons)
         {
             using (cons)
             {
-                HttpResponseMessage res = await cons.GetAsync("api/values/2");
+                HttpResponseMessage res = await cons.GetAsync("api/values");
                 res.EnsureSuccessStatusCode();
                 if (res.IsSuccessStatusCode)
                 {
-                    EventMgmt tag = await res.Content.ReadAsAsync<EventMgmt>();
+                    string[] tag = await res.Content.ReadAsAsync<string[]>();
 
                     
                     Console.WriteLine("\n");
@@ -38,7 +39,7 @@ namespace ConsoleAppforwebapi
                     Console.WriteLine("\n");
                     Console.WriteLine("tagId    tagName          tagDescription");
                     Console.WriteLine("-----------------------------------------------------------");
-                    Console.WriteLine("{0}\t{1}\t\t{2}", tag.EventID, tag.EventName, tag.EventLocation);
+                   Console.WriteLine("{0}\t{1}", tag[0], tag[1]);
                     Console.ReadLine();
                 }
             }
